@@ -34,12 +34,12 @@ class RolesTableSeeder extends Seeder
         $customerRole = Role::create([
             'name' => 'Customer',
         ]);
-        $customerRole->givePermissionTo(['customers.read', 'rides.write']);
+        $customerRole->givePermissionTo(['customers.read', 'customers.write']);
 
         $driverRole = Role::create([
             'name' => 'Driver',
         ]);   
-        $driverRole->givePermissionTo(['drivers.read', 'driverLocations.write', 'rides.write', 'rides.accept']);    
+        $driverRole->givePermissionTo(['drivers.read', 'drivers.write']);    
 
         $users = User::all();
         

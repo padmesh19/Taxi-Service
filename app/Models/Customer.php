@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -21,7 +22,7 @@ class Customer extends Authenticatable
         'email',
         'phone',
         'password',
-        
+        'user_id',
     ];
 
     /**
@@ -42,4 +43,11 @@ class Customer extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
+

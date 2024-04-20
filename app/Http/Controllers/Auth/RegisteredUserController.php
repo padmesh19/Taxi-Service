@@ -59,19 +59,14 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($request->password),
                 'user_id' => $user->id,
             ]);
-            $user->assignRole(['Customer']);
         } elseif ($request->user == 'driver') {
             $driver = Driver::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
-                'location' => 'No Location Updated',
-                'latitude' => 'No Location Updated',
-                'longitude' => 'No Location Updated',
                 'user_id' => $user->id,
             ]);
-            $user->assignRole(['Driver']);
         } 
 
         return redirect(RouteServiceProvider::HOME);
