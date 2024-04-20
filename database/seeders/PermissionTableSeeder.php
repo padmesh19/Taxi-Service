@@ -32,11 +32,6 @@ class PermissionTableSeeder extends Seeder
              'drivers.write',
              'roles.read',
              'roles.write',
-             'rides.write',
-             'rides.accept',
-             'payments.write',
-             'driverLocations.write',  
-
          ];
          foreach ($permissions as $permission) {
              Permission::create([

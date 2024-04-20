@@ -35,9 +35,6 @@ class UserTableSeeder extends Seeder
                 'email' => $user->email,
                 'phone' => fake()->phoneNumber(10),
                 'password' => $user->password,
-                'location' => 'No Location Updated',
-                'latitude' => 'No Location Updated',
-                'longitude' => 'No Location Updated',
                 'user_id' => $user->id,
             ]);
         }

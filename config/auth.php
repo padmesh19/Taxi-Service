@@ -40,14 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'drivers',
-        ],
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'customers',
-        ],
     ],
 
     /*
@@ -66,26 +58,18 @@ return [
     | Supported: "database", "eloquent"
     |
     */
+
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
 
-        'drivers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Driver::class,
-        ],
-        'customers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Customer::class,
-        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
     ],
-
 
     /*
     |--------------------------------------------------------------------------

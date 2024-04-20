@@ -23,8 +23,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->has('customers')->paginate(10);
-        return view('ui.customer.index', compact('users'));
+       $users = User::with('roles')->has('customers')->paginate(10);
+        return view('customer.index', compact('users'));
     }
 
     /**
@@ -35,7 +35,7 @@ class CustomerController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('ui.customer.create', compact('roles'));
+        return view('customer.create', compact('roles'));
     }
 
     /**
@@ -51,9 +51,9 @@ class CustomerController extends Controller
             'email' => $request->email,
             'password' => Hash::make('password123'),
         ]);
-        $user->assignRole(['Customer']);
+        $user->assignRole([$request->role_id]);
        
-        Customer::create([
+        $customer = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -72,8 +72,8 @@ class CustomerController extends Controller
      */
     public function show($userId)
     {
-        $user = User::findOrFail($userId);
-        return view('ui.customer.show', compact('user'));
+        $user = Customer::findOrFail($userId);
+        return view('customer.show', compact('user'));
     }
 
     /**
@@ -85,7 +85,7 @@ class CustomerController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('ui.customer.edit', compact('user', 'roles'));
+        return view('customers.edit', compact('user', 'roles'));
     }
 
     /**
@@ -97,21 +97,26 @@ class CustomerController extends Controller
      */
     public function update(UserUpdateRequest $request, $userId)
     {
-        $user = User::find($userId);
+        $user = User::findOrFail($userId);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make('password123'),
         ]);
-        $user->assignRole(['Customer']);
+        $user->syncRoles([$request->role_id]);
         return redirect()->route('customer.show', $user->id)->with('success', 'Customer updated successfully!');
     }
 
-
+    /**
+     * To delete the user
+     *
+     * @param $userId
+     * @return JsonResponse
+     */
     public function destroy($userId)
     {
-        $user = User::find($userId);
+        $user = User::findOrFail($userId);
         $user->delete();
-        return redirect()->route('customer.index')->with('success', 'Customer deleted successfully!');
+        return response()->json(['result' => true, 'message' => 'Customer deleted successfully', 'redirection' => route('customer.index')]);
     }
 }
